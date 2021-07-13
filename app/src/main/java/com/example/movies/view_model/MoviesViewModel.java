@@ -15,7 +15,7 @@ public class MoviesViewModel extends ViewModel {
     //    get instance of movies repository
     MoviesRepo moviesRepo = MoviesRepo.getInstance();
 
-    private MutableLiveData<GetPopularMoviesResponse> getPopularMoviesLiveData =
+    private final MutableLiveData<GetPopularMoviesResponse> getPopularMoviesLiveData =
             new MutableLiveData<>();
 
     public MutableLiveData<GetPopularMoviesResponse> returnPopularMovies() {

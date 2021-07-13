@@ -16,14 +16,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MoviesRepo {
 
-    private MoviesServices moviesServices;
+    private final MoviesServices moviesServices;
 
     public MoviesRepo() {
 
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
-        String BASE_URL = "https://salanseh.com/wp-json/wp/v2/";
+        String BASE_URL = "https://api.themoviedb.org/3/";
         Retrofit retrofit = new Retrofit.Builder().baseUrl(BASE_URL)
                 .client(client).addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create()).build();
@@ -41,32 +41,30 @@ public class MoviesRepo {
 
     public Observable<GetPopularMoviesResponse> getPopularMovies(int page, String apiKey) {
 
-        return Observable.create(emitter -> {
+        return Observable.create(emitter ->
+                moviesServices.getPopularMovies(page, apiKey).subscribeOn(Schedulers.io())
+                        .observeOn(Schedulers.io()).subscribe(
+                        new Observer<GetPopularMoviesResponse>() {
+                            @Override
+                            public void onSubscribe(@NonNull Disposable d) {
 
-            moviesServices.getPopularMovies(page, apiKey).subscribeOn(Schedulers.io())
-                    .observeOn(Schedulers.io()).subscribe(new Observer<GetPopularMoviesResponse>() {
-                @Override
-                public void onSubscribe(@NonNull Disposable d) {
+                            }
 
-                }
+                            @Override
+                            public void onNext(@NonNull GetPopularMoviesResponse response) {
+                                emitter.onNext(response);
+                            }
 
-                @Override
-                public void onNext(@NonNull GetPopularMoviesResponse response) {
-                    emitter.onNext(response);
-                }
+                            @Override
+                            public void onError(@NonNull Throwable e) {
+                                emitter.onError(e);
+                            }
 
-                @Override
-                public void onError(@NonNull Throwable e) {
-                    emitter.onError(e);
-                }
+                            @Override
+                            public void onComplete() {
 
-                @Override
-                public void onComplete() {
-
-                }
-            });
-
-        });
+                            }
+                        }));
 
     }
 
