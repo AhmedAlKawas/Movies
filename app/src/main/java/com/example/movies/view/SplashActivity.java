@@ -12,7 +12,6 @@ import com.example.movies.view_model.MoviesViewModel;
 public class SplashActivity extends AppCompatActivity {
 
     private MoviesViewModel moviesViewModel;
-    private int page = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +20,7 @@ public class SplashActivity extends AppCompatActivity {
 
         initListeners();
 
-        moviesViewModel.getPopularMovies(page, getString(R.string.api_key));
+        moviesViewModel.getPopularMovies(1, getString(R.string.api_key));
 
     }
 
