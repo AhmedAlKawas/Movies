@@ -4,54 +4,166 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".view.MovieDetailsActivity">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/iv_movie_image"
+            loadImage="@{movie.backdropPath}"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="@dimen/_4sdp"
+            android:contentDescription="@string/movie_image"
+            app:layout_constraintBottom_toBottomOf="@id/view_mid"
+            app:layout_constraintTop_toBottomOf="@id/cl_appbar" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:alpha="0.4"
+            android:background="@color/textColor"
+            android:contentDescription="@string/shadow"
+            app:layout_constraintBottom_toBottomOf="@id/iv_movie_image"
+            app:layout_constraintEnd_toEndOf="@id/iv_movie_image"
+            app:layout_constraintStart_toStartOf="@id/iv_movie_image"
+            app:layout_constraintTop_toTopOf="@id/tv_title" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_8sdp"
+            android:text="@{movie.originalTitle}"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_16ssp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_movie_image"
+            app:layout_constraintEnd_toEndOf="@id/iv_movie_image"
+            app:layout_constraintStart_toStartOf="@id/iv_movie_image" />
+
+        <TextView
+            android:id="@+id/tv_overview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_8sdp"
+            android:text="@{movie.overview}"
+            android:textColor="@color/textColor"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+        <TextView
+            android:id="@+id/tv_release"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_8sdp"
+            android:text="@string/release_date"
+            android:textColor="@color/textColor"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_overview" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_8sdp"
+            android:text="@{movie.releaseDate}"
+            android:textColor="@color/textColor"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_release"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_release" />
+
+        <TextView
+            android:id="@+id/tv_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_8sdp"
+            android:text="@string/user_rating"
+            android:textColor="@color/textColor"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_release" />
+
+        <TextView
+            android:id="@+id/tv_rating_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_8sdp"
+            android:text="@{movie.voteAverage.toString()}"
+            android:textColor="@color/textColor"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_rating"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_rating" />
+
+        <View
+            android:id="@+id/view_mid"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cl_appbar" />
+
+        <androidx.appcompat.widget.AppCompatRatingBar
+            android:id="@+id/rating_bar"
+            style="?android:attr/ratingBarStyleSmall"
+            setRatingDividedByTwo="@{movie.voteAverage}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:numStars="5"
+            android:progressTint="@color/colorPrimary"
+            android:secondaryProgressTint="#00000000"
+            android:stepSize="0.1"
+            app:layout_constraintBottom_toBottomOf="@id/tv_rating"
+            app:layout_constraintEnd_toStartOf="@id/tv_rating_value"
+            app:layout_constraintTop_toTopOf="@id/tv_rating"
+            tools:targetApi="lollipop" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_appbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/appbar_background"
+            android:minHeight="?attr/actionBarSize"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/btn_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/back_button"
+                android:padding="@dimen/_8sdp"
+                android:src="@drawable/ic_baseline_arrow_back_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_4sdp"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:maxLines="2"
+                android:text="@{movie.title}"
+                android:textAlignment="viewStart"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_18ssp"
+                app:autoSizeMaxTextSize="@dimen/_18ssp"
+                app:autoSizeTextType="uniform"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/btn_back"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <data>
 
         <variable
             name="movie"
             type="com.example.movies.network.model.GetPopularMoviesResponse.Result" />
     </data>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            android:background="@drawable/appbar_background"
-            android:minHeight="?attr/actionBarSize">
-
-        <ImageView
-            android:id="@+id/btn_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/_8sdp"
-            android:src="@drawable/ic_baseline_arrow_back_24"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:contentDescription="@string/back_button" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_4sdp"
-            android:layout_marginEnd="@dimen/_8sdp"
-            android:text="@{movie.title}"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/btn_back"
-            app:layout_constraintTop_toTopOf="parent"
-            app:autoSizeMaxTextSize="@dimen/_18ssp"
-            app:autoSizeTextType="uniform"
-            android:maxLines="2"
-            android:textSize="@dimen/_18ssp"
-            android:textAlignment="viewStart"
-            app:layout_constraintEnd_toEndOf="parent"/>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

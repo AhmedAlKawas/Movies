@@ -1,7 +1,9 @@
 package com.example.movies.network.model;
 
 import android.widget.ImageView;
+import android.widget.RatingBar;
 
+import androidx.appcompat.widget.AppCompatRatingBar;
 import androidx.databinding.BindingAdapter;
 
 import com.bumptech.glide.Glide;
@@ -100,7 +102,7 @@ public class GetPopularMoviesResponse implements Serializable {
         private Boolean video;
         @SerializedName("vote_average")
         @Expose
-        private Double voteAverage;
+        private Float voteAverage;
         @SerializedName("vote_count")
         @Expose
         private Integer voteCount;
@@ -115,6 +117,11 @@ public class GetPopularMoviesResponse implements Serializable {
             Glide.with(imageView.getContext()).setDefaultRequestOptions(requestOptions)
                     .load(imageView.getContext().getString(R.string.image_base_url) + imgUrl)
                     .into(imageView);
+        }
+
+        @BindingAdapter("setRatingDividedByTwo")
+        public static void setRating(AppCompatRatingBar ratingBar, Float rating) {
+            ratingBar.setRating(rating / 2);
         }
 
         public Boolean getAdult() {
@@ -213,11 +220,11 @@ public class GetPopularMoviesResponse implements Serializable {
             this.video = video;
         }
 
-        public Double getVoteAverage() {
+        public Float getVoteAverage() {
             return voteAverage;
         }
 
-        public void setVoteAverage(Double voteAverage) {
+        public void setVoteAverage(Float voteAverage) {
             this.voteAverage = voteAverage;
         }
 

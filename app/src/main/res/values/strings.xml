@@ -7,4 +7,6 @@
     <string name="response">response</string>
     <string name="back_button">Back button</string>
     <string name="movie">movie</string>
+    <string name="release_date">Release date</string>
+    <string name="user_rating">User rating</string>
 </resources>
