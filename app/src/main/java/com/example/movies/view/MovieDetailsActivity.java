@@ -21,6 +21,8 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
         getIntentExtras();
 
+        movieDetailsBinding.btnBack.setOnClickListener(view -> super.onBackPressed());
+
     }
 
     private void getIntentExtras() {
