@@ -34,18 +34,21 @@
             android:contentDescription="@string/back_button" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_4sdp"
+            android:layout_marginEnd="@dimen/_8sdp"
             android:text="@{movie.title}"
-            android:textColor="@color/textColor"
+            android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/btn_back"
             app:layout_constraintTop_toTopOf="parent"
             app:autoSizeMaxTextSize="@dimen/_18ssp"
             app:autoSizeTextType="uniform"
             android:maxLines="2"
-            android:textAlignment="center"/>
+            android:textSize="@dimen/_18ssp"
+            android:textAlignment="viewStart"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

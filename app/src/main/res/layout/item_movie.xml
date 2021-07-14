@@ -45,7 +45,8 @@
                 android:textSize="@dimen/_16ssp"
                 app:layout_constraintBottom_toBottomOf="@id/iv_movie_image"
                 app:layout_constraintEnd_toEndOf="@id/iv_movie_image"
-                app:layout_constraintStart_toStartOf="@id/iv_movie_image" />
+                app:layout_constraintStart_toStartOf="@id/iv_movie_image"
+                android:textAlignment="center"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

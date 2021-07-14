@@ -6,4 +6,5 @@
     <string name="image_base_url">https://image.tmdb.org/t/p/w500</string>
     <string name="response">response</string>
     <string name="back_button">Back button</string>
+    <string name="movie">movie</string>
 </resources>
