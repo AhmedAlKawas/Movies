@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_movie_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_8sdp"
+        android:elevation="@dimen/_8sdp"
+        app:cardCornerRadius="@dimen/_8sdp"
+        tools:targetApi="lollipop">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/iv_movie_image"
+                loadImage="@{movie.backdropPath}"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_180sdp"
+                android:contentDescription="@string/movie_image"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:alpha="0.3"
+                android:background="@color/textColor"
+                android:contentDescription="@string/shadow"
+                app:layout_constraintBottom_toBottomOf="@id/iv_movie_image"
+                app:layout_constraintEnd_toEndOf="@id/iv_movie_image"
+                app:layout_constraintStart_toStartOf="@id/iv_movie_image"
+                app:layout_constraintTop_toTopOf="@id/iv_movie_image" />
+
+            <TextView
+                android:id="@+id/tv_person_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_2sdp"
+                android:text="@{movie.title}"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_16ssp"
+                app:layout_constraintBottom_toBottomOf="@id/iv_movie_image"
+                app:layout_constraintEnd_toEndOf="@id/iv_movie_image"
+                app:layout_constraintStart_toStartOf="@id/iv_movie_image" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <data>
+
+        <variable
+            name="movie"
+            type="com.example.movies.network.model.GetPopularMoviesResponse.Result" />
+
+    </data>
+
+</layout>

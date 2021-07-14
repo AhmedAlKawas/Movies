@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Movies</string>
     <string name="api_key">d1f3680639049343db71b7cfd1181103</string>
+    <string name="shadow">Shadow</string>
+    <string name="movie_image">Movie image</string>
+    <string name="image_base_url">https://image.tmdb.org/t/p/w500</string>
 </resources>

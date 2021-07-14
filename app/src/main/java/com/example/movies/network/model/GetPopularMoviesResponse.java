@@ -1,5 +1,12 @@
 package com.example.movies.network.model;
 
+import android.widget.ImageView;
+
+import androidx.databinding.BindingAdapter;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.example.movies.R;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -97,6 +104,18 @@ public class GetPopularMoviesResponse implements Serializable {
         @SerializedName("vote_count")
         @Expose
         private Integer voteCount;
+
+        @BindingAdapter("loadImage")
+        public static void loadImageByGlide(ImageView imageView, String imgUrl) {
+            RequestOptions requestOptions = new RequestOptions()
+                    .placeholder(R.drawable.ic_baseline_movie_24)
+                    .error(R.drawable.ic_baseline_movie_24)
+                    .centerCrop();
+
+            Glide.with(imageView.getContext()).setDefaultRequestOptions(requestOptions)
+                    .load(imageView.getContext().getString(R.string.image_base_url) + imgUrl)
+                    .into(imageView);
+        }
 
         public Boolean getAdult() {
             return adult;
