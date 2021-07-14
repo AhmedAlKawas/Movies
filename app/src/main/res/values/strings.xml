@@ -4,4 +4,5 @@
     <string name="shadow">Shadow</string>
     <string name="movie_image">Movie image</string>
     <string name="image_base_url">https://image.tmdb.org/t/p/w500</string>
+    <string name="response">response</string>
 </resources>

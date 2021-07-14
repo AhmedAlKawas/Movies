@@ -1,5 +1,6 @@
 package com.example.movies.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,6 +33,9 @@ public class SplashActivity extends AppCompatActivity {
 
             if (response != null) {
 
+                Intent intent = new Intent(SplashActivity.this, HomeActivity.class);
+                intent.putExtra(getString(R.string.response), response);
+                startActivity(intent);
 
             }
 
