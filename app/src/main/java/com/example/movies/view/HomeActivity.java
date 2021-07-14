@@ -14,6 +14,7 @@ import com.example.movies.interfaces.MovieCallback;
 import com.example.movies.network.model.GetPopularMoviesResponse;
 import com.example.movies.view.adapters.MoviesAdapter;
 import com.example.movies.view_model.MoviesViewModel;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +27,8 @@ public class HomeActivity extends AppCompatActivity implements MovieCallback {
     private MoviesAdapter moviesAdapter;
     private int page = 1;
     private MoviesViewModel moviesViewModel;
+    private FirebaseAnalytics analytics;
+    private Bundle params;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,19 +39,22 @@ public class HomeActivity extends AppCompatActivity implements MovieCallback {
         initListeners();
         getIntentExtras();
 
+        analytics = FirebaseAnalytics.getInstance(HomeActivity.this);
+        params = new Bundle();
+
     }
 
     private void initListeners() {
 
         moviesViewModel = new ViewModelProvider(HomeActivity.this)
                 .get(MoviesViewModel.class);
-        moviesViewModel.returnPopularMovies().observe(HomeActivity.this, paggingResponse -> {
+        moviesViewModel.returnPopularMovies().observe(HomeActivity.this, pagingResponse -> {
 
             homeBinding.lottie.setVisibility(View.GONE);
 
-            if (paggingResponse != null && paggingResponse.getResults().size() > 0) {
+            if (pagingResponse != null && pagingResponse.getResults().size() > 0) {
 
-                movies.addAll(paggingResponse.getResults());
+                movies.addAll(pagingResponse.getResults());
                 moviesAdapter.notifyDataSetChanged();
 
             }
@@ -79,6 +85,22 @@ public class HomeActivity extends AppCompatActivity implements MovieCallback {
     @Override
     public void onMovieClicked(int position) {
 
+//        Logging firebase event
+        params.putString("movie_name", movies.get(position).getTitle().trim());
+        if (movies.get(position).getTitle().trim()
+                .replaceAll(" ", "_")
+                .replaceAll("(\\W|^_)*", "").length() > 40)
+            analytics.logEvent(movies.get(position).getTitle().trim()
+                    .replaceAll(" ", "_") //Replace any space with underscore
+                    .replaceAll("(\\W|^_)*", "") //Remove any symbol
+                    .substring(0, 40), params);
+        else
+            analytics.logEvent(movies.get(position).getTitle().trim()
+                            .replaceAll(" ", "_") //Replace any space with underscore
+                            .replaceAll("(\\W|^_)*", "") //Remove any symbol
+                    , params);
+
+//        Navigate to details activity
         Intent intent = new Intent(HomeActivity.this, MovieDetailsActivity.class);
         intent.putExtra(getString(R.string.movie), movies.get(position));
         startActivity(intent);
