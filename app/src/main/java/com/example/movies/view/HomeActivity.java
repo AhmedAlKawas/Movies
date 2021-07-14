@@ -8,11 +8,17 @@ import androidx.databinding.DataBindingUtil;
 import com.example.movies.R;
 import com.example.movies.databinding.ActivityHomeBinding;
 import com.example.movies.network.model.GetPopularMoviesResponse;
+import com.example.movies.view.adapters.MoviesAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
 
     private ActivityHomeBinding homeBinding;
     private GetPopularMoviesResponse response;
+    private List<GetPopularMoviesResponse.Result> movies;
+    private MoviesAdapter moviesAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +41,11 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void setRecyclerViewAdapter(GetPopularMoviesResponse response) {
+
+        movies = new ArrayList<>();
+        movies.addAll(response.getResults());
+        moviesAdapter = new MoviesAdapter(movies);
+        homeBinding.rvMoviesList.setAdapter(moviesAdapter);
 
     }
 }
