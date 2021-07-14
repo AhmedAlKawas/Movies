@@ -7,13 +7,14 @@ import androidx.databinding.DataBindingUtil;
 
 import com.example.movies.R;
 import com.example.movies.databinding.ActivityHomeBinding;
+import com.example.movies.interfaces.MovieCallback;
 import com.example.movies.network.model.GetPopularMoviesResponse;
 import com.example.movies.view.adapters.MoviesAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity implements MovieCallback {
 
     private ActivityHomeBinding homeBinding;
     private GetPopularMoviesResponse response;
@@ -44,8 +45,18 @@ public class HomeActivity extends AppCompatActivity {
 
         movies = new ArrayList<>();
         movies.addAll(response.getResults());
-        moviesAdapter = new MoviesAdapter(movies);
+        moviesAdapter = new MoviesAdapter(movies, this);
         homeBinding.rvMoviesList.setAdapter(moviesAdapter);
+
+    }
+
+    @Override
+    public void onMovieClicked(int position) {
+
+    }
+
+    @Override
+    public void onLastMovieItemReached() {
 
     }
 }

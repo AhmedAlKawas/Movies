@@ -9,17 +9,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.movies.R;
 import com.example.movies.databinding.ItemMovieBinding;
+import com.example.movies.interfaces.MovieCallback;
 import com.example.movies.network.model.GetPopularMoviesResponse;
 
 import java.util.List;
 
 public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieHolder> {
 
-    private List<GetPopularMoviesResponse.Result> moviesList;
+    private final List<GetPopularMoviesResponse.Result> moviesList;
     private LayoutInflater layoutInflater;
+    private MovieCallback callback;
 
-    public MoviesAdapter(List<GetPopularMoviesResponse.Result> moviesList) {
+    public MoviesAdapter(List<GetPopularMoviesResponse.Result> moviesList, MovieCallback callback) {
         this.moviesList = moviesList;
+        this.callback = callback;
     }
 
     @NonNull
@@ -35,6 +38,12 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieHolde
     @Override
     public void onBindViewHolder(@NonNull MovieHolder holder, int position) {
         holder.movieBinding.setMovie(moviesList.get(position));
+        holder.movieBinding.cvMovieItem.setOnClickListener(view -> callback.onMovieClicked(position));
+
+        if (position == moviesList.size() - 1) {
+            callback.onLastMovieItemReached();
+        }
+
     }
 
     @Override
