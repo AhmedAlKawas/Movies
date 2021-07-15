@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.movies.R;
+import com.example.movies.network.model.GetPopularMoviesResponse;
 import com.example.movies.view_model.MoviesViewModel;
 
 public class SplashActivity extends AppCompatActivity {
@@ -30,15 +31,16 @@ public class SplashActivity extends AppCompatActivity {
                 .get(MoviesViewModel.class);
         moviesViewModel.returnPopularMovies().observe(SplashActivity.this, response -> {
 
-            if (response != null) {
-
-                Intent intent = new Intent(SplashActivity.this, HomeActivity.class);
-                intent.putExtra(getString(R.string.response), response);
-                startActivity(intent);
-
-            }
+            if (response != null) navigateToHome(response);
 
         });
 
     }
+
+    private void navigateToHome(GetPopularMoviesResponse response) {
+        Intent intent = new Intent(SplashActivity.this, HomeActivity.class);
+        intent.putExtra(getString(R.string.response), response);
+        startActivity(intent);
+    }
+
 }
