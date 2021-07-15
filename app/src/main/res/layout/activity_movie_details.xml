@@ -163,7 +163,7 @@
 
         <variable
             name="movie"
-            type="com.example.movies.network.model.GetPopularMoviesResponse.Result" />
+            type="com.example.movies.model.Movie" />
     </data>
 
 </layout>

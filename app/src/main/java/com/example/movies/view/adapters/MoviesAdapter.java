@@ -10,17 +10,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.movies.R;
 import com.example.movies.databinding.ItemMovieBinding;
 import com.example.movies.interfaces.MovieCallback;
+import com.example.movies.model.Movie;
 import com.example.movies.network.model.GetPopularMoviesResponse;
 
 import java.util.List;
 
 public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieHolder> {
 
-    private final List<GetPopularMoviesResponse.Result> moviesList;
+    private final List<Movie> moviesList;
     private LayoutInflater layoutInflater;
     private MovieCallback callback;
 
-    public MoviesAdapter(List<GetPopularMoviesResponse.Result> moviesList, MovieCallback callback) {
+    public MoviesAdapter(List<Movie> moviesList, MovieCallback callback) {
         this.moviesList = moviesList;
         this.callback = callback;
     }

@@ -7,6 +7,7 @@ import androidx.databinding.DataBindingUtil;
 
 import com.example.movies.R;
 import com.example.movies.databinding.ActivityMovieDetailsBinding;
+import com.example.movies.model.Movie;
 import com.example.movies.network.model.GetPopularMoviesResponse;
 
 public class MovieDetailsActivity extends AppCompatActivity {
@@ -28,7 +29,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
     private void getIntentExtras() {
 
         if (getIntent().getSerializableExtra(getString(R.string.movie)) != null)
-            movieDetailsBinding.setMovie((GetPopularMoviesResponse.Result)
+            movieDetailsBinding.setMovie((Movie)
                     getIntent().getSerializableExtra(getString(R.string.movie)));
 
     }

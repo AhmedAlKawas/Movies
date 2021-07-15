@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.movies.R;
 import com.example.movies.databinding.ActivityHomeBinding;
 import com.example.movies.interfaces.MovieCallback;
+import com.example.movies.model.Movie;
 import com.example.movies.network.model.GetPopularMoviesResponse;
 import com.example.movies.view.adapters.MoviesAdapter;
 import com.example.movies.view_model.MoviesViewModel;
@@ -23,7 +24,7 @@ public class HomeActivity extends AppCompatActivity implements MovieCallback {
 
     private ActivityHomeBinding homeBinding;
     private GetPopularMoviesResponse response;
-    private List<GetPopularMoviesResponse.Result> movies;
+    private List<Movie> movies;
     private MoviesAdapter moviesAdapter;
     private int page = 1;
     private MoviesViewModel moviesViewModel;
@@ -52,9 +53,9 @@ public class HomeActivity extends AppCompatActivity implements MovieCallback {
 
             homeBinding.lottie.setVisibility(View.GONE);
 
-            if (pagingResponse != null && pagingResponse.getResults().size() > 0) {
+            if (pagingResponse != null && pagingResponse.getMovies().size() > 0) {
 
-                movies.addAll(pagingResponse.getResults());
+                movies.addAll(pagingResponse.getMovies());
                 moviesAdapter.notifyDataSetChanged();
 
             }
@@ -76,7 +77,7 @@ public class HomeActivity extends AppCompatActivity implements MovieCallback {
     private void setRecyclerViewAdapter(GetPopularMoviesResponse response) {
 
         movies = new ArrayList<>();
-        movies.addAll(response.getResults());
+        movies.addAll(response.getMovies());
         moviesAdapter = new MoviesAdapter(movies, this);
         homeBinding.rvMoviesList.setAdapter(moviesAdapter);
 
@@ -117,7 +118,7 @@ public class HomeActivity extends AppCompatActivity implements MovieCallback {
     public void onLastMovieItemReached() {
 
 //        Check if we didn't reach the movies end
-        if (response.getResults().size() == 20) {
+        if (page < response.getTotalPages()) {
             homeBinding.lottie.setVisibility(View.VISIBLE);
             page++;
             moviesViewModel.getPopularMovies(page, getString(R.string.api_key));
