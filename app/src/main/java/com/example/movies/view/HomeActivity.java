@@ -85,7 +85,18 @@ public class HomeActivity extends AppCompatActivity implements MovieCallback {
     @Override
     public void onMovieClicked(int position) {
 
-//        Logging firebase event
+        logMovieClickEvent(position);
+
+//        Navigate to details activity
+        Intent intent = new Intent(HomeActivity.this, MovieDetailsActivity.class);
+        intent.putExtra(getString(R.string.movie), movies.get(position));
+        startActivity(intent);
+
+
+    }
+
+    private void logMovieClickEvent(int position) {
+
         params.putString("movie_name", movies.get(position).getTitle().trim());
         if (movies.get(position).getTitle().trim()
                 .replaceAll(" ", "_")
@@ -99,12 +110,6 @@ public class HomeActivity extends AppCompatActivity implements MovieCallback {
                             .replaceAll(" ", "_") //Replace any space with underscore
                             .replaceAll("(\\W|^_)*", "") //Remove any symbol
                     , params);
-
-//        Navigate to details activity
-        Intent intent = new Intent(HomeActivity.this, MovieDetailsActivity.class);
-        intent.putExtra(getString(R.string.movie), movies.get(position));
-        startActivity(intent);
-
 
     }
 
